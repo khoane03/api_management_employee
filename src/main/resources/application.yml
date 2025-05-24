@@ -1,0 +1,31 @@
+server:
+  port: 8686
+  servlet:
+    context-path: /api/v1
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_NAME}
+    password: ${DB_PASS}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    generate-ddl: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org.hibernate: ERROR
+    com.zaxxer.hikari: ERROR
+
+
+define:
+  secret-key: ${SECRET_KEY}
+  access-token-expiration: 300000 #5 minutes
+  refresh-token-expiration: 432000000 #5 days
