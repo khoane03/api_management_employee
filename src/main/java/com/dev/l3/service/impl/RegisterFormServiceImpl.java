@@ -9,6 +9,7 @@ import com.dev.l3.exception.AppException;
 import com.dev.l3.exception.ErrorMess;
 import com.dev.l3.mapper.RegisterFormMapper;
 import com.dev.l3.repository.EmployeeInfoRepository;
+import com.dev.l3.repository.FormTypeRepository;
 import com.dev.l3.repository.RegisterFormRepository;
 import com.dev.l3.repository.UserRepository;
 import com.dev.l3.service.RegisterFormService;
@@ -36,6 +37,7 @@ public class RegisterFormServiceImpl implements RegisterFormService {
     final UserRepository userRepository;
     final EmployeeInfoRepository employeeInfoRepository;
     final RegisterFormMapper registerFormMapper;
+    final FormTypeRepository formTypeRepository;
 
     @Override
     public RegistrationFormResponse createForm(Integer employeeId, RegistrationFormRequest req) {
@@ -47,6 +49,8 @@ public class RegisterFormServiceImpl implements RegisterFormService {
         var registrationForm = registerFormMapper.toEntity(req);
         registrationForm.setEmployeeInfo(employee);
         registrationForm.setManager(getCurrent());
+        registrationForm.setFormType(formTypeRepository.findByCode(req.getFormCode())
+                .orElseThrow(() -> new AppException(ErrorMess.FORM_TYPE_NOT_EXISTED)));
         registrationForm.setStatus(StatusEnum.NEW_SAVE);
         return registerFormMapper.toResponse(registerFormRepository.save(registrationForm));
     }
@@ -87,6 +91,7 @@ public class RegisterFormServiceImpl implements RegisterFormService {
         var registrationForm = registerFormRepository.findByCode(code)
                 .orElseThrow(() -> new AppException(ErrorMess.REGISTRATION_FORM_NOT_EXISTED));
         registrationForm.setLeader(getCurrent());
+        registrationForm.setPositionApproval(getCurrent().getPosition());
         registrationForm.setReason(req.getReason());
 
         switch (StatusEnum.valueOf(req.getStatus())) {

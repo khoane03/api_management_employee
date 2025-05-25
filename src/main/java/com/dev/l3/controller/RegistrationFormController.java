@@ -7,6 +7,7 @@ import com.dev.l3.service.RegisterFormService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequestMapping("/registration-form")
+@Slf4j
 public class RegistrationFormController {
 
     final RegisterFormService registerFormService;

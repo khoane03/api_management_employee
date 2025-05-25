@@ -47,4 +47,11 @@ public class ApiResponse<T> {
         apiResponse.setMessage(err);
         return apiResponse;
     }
+
+    public static <T> ApiResponse<T> buildException(String err){
+        ApiResponse<T> apiResponse = new ApiResponse<>();
+        apiResponse.setCode(HttpStatus.BAD_REQUEST.value());
+        apiResponse.setMessage(err);
+        return apiResponse;
+    }
 }

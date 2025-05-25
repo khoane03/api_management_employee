@@ -7,18 +7,12 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RegistrationFormRequest {
+public class FormTypeRequest {
 
     @NotNull(message = "Code is required")
     String code;
 
-    @NotNull(message = "FormCode is required")
-    String formCode;
-
-    @NotNull(message = "Content is required")
-    String content;
-
-    @NotNull(message = "Note is required")
-    String note;
+    @NotNull(message = "Name is required")
+    String name;
 
 }

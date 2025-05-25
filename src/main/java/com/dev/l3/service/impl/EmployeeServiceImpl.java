@@ -17,6 +17,7 @@ import com.dev.l3.utils.validator.EnumValidate;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public EmployeeResponse createEmployee(EmployeeRequest request) {
         AppValidate.checkDuplicate(employeeInfoRepository.existsByCode(request.getCode()), ErrorMess.CODE_ALREADY_EXISTED);
         EnumValidate.enumValidate(GenderEnum.class, request.getGender(), ErrorMess.GENDER_INVALID);

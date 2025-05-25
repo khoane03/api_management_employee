@@ -1,5 +1,6 @@
 package com.dev.l3.configuration;
 
+import com.dev.l3.utils.enums.RoleEnum;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -30,6 +31,11 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests.requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/employee/**").hasRole(RoleEnum.MANAGER.name())
+                                .requestMatchers("/registration-form/**").hasRole(RoleEnum.MANAGER.name())
+                                .requestMatchers("/certificate/**").hasRole(RoleEnum.MANAGER.name())
+                                .requestMatchers("/family/**").hasRole(RoleEnum.MANAGER.name())
+                                .requestMatchers("/leader/**").hasRole(RoleEnum.LEADER.name())
                                 .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagement ->
@@ -38,17 +44,16 @@ public class SecurityConfig {
                         oauth2ResourceServer.jwt(jwt -> jwt
                                         .decoder(customJwtDecoder)
                                         .jwtAuthenticationConverter(jwtAuthenticationConverter()))
-                                .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
-
+                                .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+                                .accessDeniedHandler(new JwtAccessDeniedHandler()));
         return http.build();
     }
 
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {
-
         // convert authorities from the "scope" claim in the token
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix(" ");
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("");
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtAuthenticationConverter;

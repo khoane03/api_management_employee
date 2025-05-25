@@ -60,6 +60,7 @@ public class AuthServiceImpl implements AuthService {
                 .name(request.getName())
                 .username(request.getUsername())
                 .code(request.getCode())
+                .position(request.getPosition())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .roles(new HashSet<>(Set.of(checkRole())))
                 .build();
@@ -78,9 +79,9 @@ public class AuthServiceImpl implements AuthService {
         jwtService.logout(token);
     }
     Role checkRole() {
-        return roleRepository.findByRoleName(RoleEnum.ROLE_MANAGER.name())
+        return roleRepository.findByRoleName(RoleEnum.MANAGER.name())
                 .orElseGet(() -> roleRepository.save(Role.builder()
-                        .roleName(RoleEnum.ROLE_MANAGER.name())
+                        .roleName(RoleEnum.MANAGER.name())
                         .build()));
     }
 

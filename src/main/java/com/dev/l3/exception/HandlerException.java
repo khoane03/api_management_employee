@@ -20,7 +20,7 @@ public class HandlerException {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        return ResponseEntity.badRequest().body(ApiResponse.build(Objects.requireNonNull(e.getFieldError()).getDefaultMessage()));
+        return ResponseEntity.badRequest().body(ApiResponse.buildException(Objects.requireNonNull(e.getFieldError()).getDefaultMessage()));
     }
 
     @ExceptionHandler(Exception.class)

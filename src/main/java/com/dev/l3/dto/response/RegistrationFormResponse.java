@@ -18,6 +18,8 @@ public class RegistrationFormResponse {
 
     String content;
 
+    String note;
+
     String status;
 
     LocalDate submissionDate;
@@ -29,4 +31,9 @@ public class RegistrationFormResponse {
     LocalDate additionalRequiredDate;
 
     String reason;
+
+    String positionApproval;
+
+    FormTypeResponse formType;
+
 }

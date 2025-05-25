@@ -14,8 +14,11 @@ public class RegisterRequest {
     String name;
 
     @NotBlank(message = "code is required")
-    @Pattern(regexp = "^NV\\d+$", message = "Code must start with NV")
+    @Pattern(regexp = "^MN\\d+$", message = "Code must start with MN")
     String code;
+
+    @NotBlank(message = "Position is required")
+    String position;
 
     @NotBlank(message = "Username is required")
     @Size(min = 8, max = 20, message = "Username must be between 6 and 20 characters")

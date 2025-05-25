@@ -33,9 +33,14 @@ public enum ErrorMess {
     REGISTRATION_FORM_NOT_EXISTED(400_017, "Registration form not existed", HttpStatus.BAD_REQUEST),
     EMPLOYEE_NOT_APPROVED(400_018, "Employee must be approved to add forms", HttpStatus.BAD_REQUEST),
     REGISTRATION_FORM_NOT_ALLOW_UPDATE(400_019, "Registration form is not allowed to update when the status PENDING or APPROVED", HttpStatus.BAD_REQUEST),
+    FORM_TYPE_NOT_EXISTED(400_020, "Form type not existed", HttpStatus.BAD_REQUEST),
+    FORM_TYPE_CANNOT_BE_UPDATED(400_021, "Form type cannot be updated when the status is PENDING or APPROVED", HttpStatus.BAD_REQUEST),
 
     //404
     NOT_FOUND(404, "NOT_FOUND", HttpStatus.NOT_FOUND),
+
+    //403
+    FORBIDDEN(403, "You do not have permission to access this resource", HttpStatus.FORBIDDEN),
 
 
 

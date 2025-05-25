@@ -18,11 +18,11 @@ public class RegistrationForms extends BaseEntity{
     @Column(name = "code")
     String code;
 
-    @Column(name = "name")
-    String name;
-
     @Column(name = "content")
     String content;
+
+    @Column(name = "note")
+    String note;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
@@ -43,6 +43,9 @@ public class RegistrationForms extends BaseEntity{
     @Column(name = "reason")
     String reason;
 
+    @Column(name = "position_approval")
+    String positionApproval;
+
     @ManyToOne
     @JoinColumn(name = "employee_id")
     EmployeeInfo employeeInfo;
@@ -54,5 +57,10 @@ public class RegistrationForms extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "manager_id")
     User manager;
+
+    @ManyToOne
+    @JoinColumn(name = "form_type_id")
+    FormType formType;
+
 
 }

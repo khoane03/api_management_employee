@@ -30,13 +30,14 @@ public class AppInit implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         if (userRepository.findByUsername("admin").isEmpty()) {
-            var role = roleRepository.findByRoleName(RoleEnum.ROLE_LEADER.name())
+            var role = roleRepository.findByRoleName(RoleEnum.LEADER.name())
                     .orElseGet(() -> roleRepository.save(Role.builder()
-                            .roleName(RoleEnum.ROLE_LEADER.name())
+                            .roleName(RoleEnum.LEADER.name())
                             .build()));
             userRepository.save(User.builder()
                     .name("Administrator")
                     .code("LD01")
+                    .position("Leader")
                     .username("admin")
                     .password(passwordEncoder.encode("admin"))
                     .roles(new HashSet<>(Set.of(role)))

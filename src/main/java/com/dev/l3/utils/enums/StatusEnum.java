@@ -5,5 +5,8 @@ public enum StatusEnum {
     PENDING,
     APPROVED,
     REJECTED,
-    ADDITIONAL_REQUIRED
+    ADDITIONAL_REQUIRED,
+    PENDING_CLOSE,
+
+    CLOSED,
 }
