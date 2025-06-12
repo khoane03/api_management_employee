@@ -55,4 +55,9 @@ public class EmployeeController {
         return ApiResponse.build(AppConst.SUCCESS);
     }
 
+    @GetMapping("/approved")
+    public ApiResponse<List<EmployeeResponse>> getEmployeeApproved() {
+        return ApiResponse.build(employeeService.getAllEmployeeApproved());
+    }
+
 }

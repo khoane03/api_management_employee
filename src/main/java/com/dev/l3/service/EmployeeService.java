@@ -22,4 +22,6 @@ public interface EmployeeService {
     List<EmployeeResponse> getAllPending();
 
     void leaderProcess(Integer id, ProcessRequest req);
+
+    List<EmployeeResponse> getAllEmployeeApproved();
 }

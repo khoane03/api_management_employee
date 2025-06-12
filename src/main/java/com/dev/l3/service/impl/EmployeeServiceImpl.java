@@ -17,7 +17,6 @@ import com.dev.l3.utils.validator.EnumValidate;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +32,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     @Override
-    @PreAuthorize("hasRole('MANAGER')")
     public EmployeeResponse createEmployee(EmployeeRequest request) {
         AppValidate.checkDuplicate(employeeInfoRepository.existsByCode(request.getCode()), ErrorMess.CODE_ALREADY_EXISTED);
         EnumValidate.enumValidate(GenderEnum.class, request.getGender(), ErrorMess.GENDER_INVALID);
@@ -96,10 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<EmployeeResponse> getAllPending() {
-        List<EmployeeInfo> employeeInfos = employeeInfoRepository.findAllByStatus(StatusEnum.PENDING);
-        return employeeInfos.stream()
-                .map(employeeMapper::toResponse)
-                .toList();
+        return getByStatus(StatusEnum.PENDING);
     }
 
     @Override
@@ -116,5 +111,17 @@ public class EmployeeServiceImpl implements EmployeeService {
                 }, () -> {
                     throw new AppException(ErrorMess.EMPLOYEE_NOT_EXISTED);
                 });
+    }
+
+    @Override
+    public List<EmployeeResponse> getAllEmployeeApproved() {
+       return getByStatus(StatusEnum.APPROVED);
+    }
+
+    List<EmployeeResponse> getByStatus(StatusEnum status) {
+        List<EmployeeInfo> employeeInfos = employeeInfoRepository.findAllByStatus(status);
+        return employeeInfos.stream()
+                .map(employeeMapper::toResponse)
+                .toList();
     }
 }
