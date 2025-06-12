@@ -14,7 +14,7 @@ public class RegistrationFormResponse {
 
     String code;
 
-    String name;
+    String employeeName;
 
     String content;
 
